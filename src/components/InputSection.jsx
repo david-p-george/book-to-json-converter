@@ -70,6 +70,7 @@ const InputSection = () => {
 		document.getElementById('bookName').value = '';
 		document.getElementById('sectionText').value = '';
 		document.getElementById('chapterText').value = '';
+		document.getElementById('outputPRE').innerHTML = JSON.stringify({ name: '', type: 'book', data: [] }, null, 2);
 	}
 
 
