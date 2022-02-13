@@ -66,7 +66,12 @@ const InputSection = () => {
 
       Array.from(chapter.querySelectorAll("#section")).map((section) => {
         let sectionText = section.querySelector("#sectionText").value;
-        let sectionObj = { type: "section", text: sectionText };
+        let sectionHeading = section.querySelector("#sectionHeading").value;
+        let sectionObj = {
+          type: "section",
+          heading: sectionHeading,
+          text: sectionText,
+        };
 
         chapterObj.noOfSections += 1;
         chapterObj.sections.push(sectionObj);
@@ -95,7 +100,7 @@ const InputSection = () => {
   };
 
   return (
-    <div className="w-[500px] h-[700px] bg-white overflow-y-auto overflow-x-auto">
+    <div className="w-screen sm:w-[500px] h-1/2 sm:h-[700px] bg-white overflow-y-auto overflow-x-auto">
       <div className="flex justify-around w-full">
         <FormControl className="ml-2 mt-2">
           <FormLabel htmlFor="bookName">
@@ -136,7 +141,7 @@ const InputSection = () => {
       <div className="w-full flex flex-col justify-center items-center">
         {chapters?.map((chapter, i) => (
           <div
-            className="flex flex-col border-2 mt-3 mb-3 w-[450px]"
+            className="flex flex-col border-2 mt-3 mb-3 w-full sm:w-[450px]"
             id="chapter"
           >
             <div className="flex justify-end mr-2">
@@ -156,7 +161,7 @@ const InputSection = () => {
             </div>
 
             <div className="flex flex-row">
-              <FormControl className="ml-2">
+              <FormControl className="ml-4">
                 <FormLabel htmlFor="chapterText">
                   <span className="font-semibold text-lg">Name</span>
                 </FormLabel>
@@ -184,35 +189,52 @@ const InputSection = () => {
             </div>
 
             <div>
-              <Heading size="lg" className="ml-2 mt-2 mb-2">
+              <Heading size="lg" className="ml-1 sm:ml-5 mt-2 mb-2">
                 Sections
               </Heading>
 
               {chapter?.sections?.map((section) => (
                 <div
-                  className="flex flex-row w-[400px] justify-center items-center mb-4 mt-4 ml-5 rounded-lg bg-gray-100"
+                  className="flex flex-row w-full sm:w-[400px] justify-center items-center mb-4 mt-4 sm:ml-5 rounded-lg bg-gray-100"
                   id="section"
                 >
-                  <FormControl className="ml-2">
-                    <FormLabel htmlFor="sectionText">
-                      <span className="font-semibold text-lg">Text</span>
-                    </FormLabel>
-                    <Input
-                      id="sectionText"
-                      name="sectionText"
-                      htmlSize={30}
-                      width="auto"
-                      className="mb-3"
-                      borderColor="blue.200"
-                    />
-                  </FormControl>
+                  <div className="flex flex-col">
+                    <FormControl className="ml-2">
+                      <FormLabel htmlFor="sectionHeading">
+                        <span className="font-semibold text-lg">Heading</span>
+                      </FormLabel>
+                      <Input
+                        id="sectionHeading"
+                        name="sectionHeading"
+                        htmlSize={30}
+                        width="auto"
+                        className="mb-3"
+                        borderColor="blue.200"
+                      />
+                    </FormControl>
+                    <FormControl className="ml-2">
+                      <FormLabel htmlFor="sectionText">
+                        <span className="font-semibold text-lg">Text</span>
+                      </FormLabel>
+                      <Input
+                        id="sectionText"
+                        name="sectionText"
+                        htmlSize={30}
+                        width="auto"
+                        className="mb-3"
+                        borderColor="blue.200"
+                      />
+                    </FormControl>
+                  </div>
 
-                  <Button className="mr-2 mt-6 ml-3" bgColor="blue.100">
-                    <DeleteIcon
-                      color="red.500"
-                      onClick={() => handleRemoveSection(i, section?.no)}
-                    />
-                  </Button>
+                  <div className="ml-2 mt-3 h-[176px]">
+                    <Button className="" bgColor="blue.100">
+                      <DeleteIcon
+                        color="red.500"
+                        onClick={() => handleRemoveSection(i, section?.no)}
+                      />
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>
