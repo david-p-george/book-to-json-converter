@@ -155,8 +155,8 @@ const InputSection = () => {
                 Section
               </Button>
 
-              <Button className="mr-2 mt-2 ml-3">
-                <DeleteIcon color="red.500" onClick={() => handleRemove(i)} />
+              <Button className="mr-2 mt-2 ml-3" bgColor="blue.100" _hover={{ background: "white" }} onClick={() => handleRemove(i)}>
+                <DeleteIcon color="red.300" _hover={{ color: "red.600" }} />
               </Button>
             </div>
 
@@ -187,15 +187,14 @@ const InputSection = () => {
                 />
               </FormControl>
             </div>
-
             <div>
-              <Heading size="lg" className="ml-1 sm:ml-5 mt-2 mb-2">
+              <Heading size="lg" className="ml-1 sm:ml-4 mt-2 mb-2">
                 Sections
               </Heading>
 
               {chapter?.sections?.map((section) => (
                 <div
-                  className="flex flex-row w-full sm:w-[400px] justify-center items-center mb-4 mt-4 sm:ml-5 rounded-lg bg-gray-100"
+                  className="flex flex-row w-full sm:w-[400px] justify-center items-center mb-4 mt-4 sm:ml-4 bg-gray-100 rounded-lg"
                   id="section"
                 >
                   <div className="flex flex-col">
@@ -228,10 +227,10 @@ const InputSection = () => {
                   </div>
 
                   <div className="ml-2 mt-3 h-[176px]">
-                    <Button className="" bgColor="blue.100">
+                    <Button bgColor="blue.100" onClick={() => handleRemoveSection(i, section?.no)} _hover={{ background: "gray.100" }}>
                       <DeleteIcon
                         color="red.500"
-                        onClick={() => handleRemoveSection(i, section?.no)}
+                        _hover={{ color: "red.600" }}
                       />
                     </Button>
                   </div>
