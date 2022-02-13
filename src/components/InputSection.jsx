@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useState } from "react";
 import {
   FormControl,
@@ -13,19 +14,24 @@ const InputSection = () => {
     { chapterNo: 1, sections: [{ no: 1 }] },
   ]);
 
+  const returnRandomId = () => {
+    return Math.floor(Math.random() * 100000);
+  }
+
   const handleAddChapter = () => {
     let currentChapters = [...chapters];
+    let randomID = returnRandomId();
     currentChapters.push({
-      chapterNo: chapters.length + 1,
-      sections: [{ no: 1 }],
+      chapterNo: randomID,
+      sections: [{ no: 1 }]
     });
     setChapters(currentChapters);
   };
 
-  const handleRemove = (index) => {
+  const handleRemove = (chapterNo) => {
     let currentChapters = [...chapters];
-    currentChapters.splice(index, 1);
-    setChapters(currentChapters);
+    let updatedChapters = currentChapters.filter((obj) => obj.chapterNo !== chapterNo);
+    setChapters(updatedChapters);
   };
 
   const handleRemoveSection = (i, sectionNo) => {
@@ -40,9 +46,10 @@ const InputSection = () => {
 
   const handleAddSection = (i) => {
     let currentChapters = [...chapters];
+    let randomID = returnRandomId();
     let indexChapter = currentChapters[i];
     indexChapter.sections?.push({
-      no: currentChapters[i].sections?.length + 1,
+      no: randomID,
     });
     currentChapters[i] = indexChapter;
     setChapters(currentChapters);
@@ -52,7 +59,7 @@ const InputSection = () => {
     const bookName = document.getElementById("bookName").value;
     const responseObj = { type: "book", name: bookName, data: [] };
 
-    Array.from(document.querySelectorAll("#chapter")).map((chapter) => {
+    Array.from(document.querySelectorAll('[id^="chapterDiv"]')).map((chapter) => {
       let chapterText = chapter.querySelector("#chapterText").value;
       let chapterNo = chapter.querySelector("#chapterNo").value;
 
@@ -64,7 +71,7 @@ const InputSection = () => {
         sections: [],
       };
 
-      Array.from(chapter.querySelectorAll("#section")).map((section) => {
+      Array.from(chapter.querySelectorAll("#sectionDiv")).map((section) => {
         let sectionText = section.querySelector("#sectionText").value;
         let sectionHeading = section.querySelector("#sectionHeading").value;
         let sectionObj = {
@@ -91,6 +98,7 @@ const InputSection = () => {
     setChapters([{ chapterNo: 1, sections: [{ no: 1 }] }]);
     document.getElementById("bookName").value = "";
     document.getElementById("sectionText").value = "";
+    document.getElementById("sectionHeading").value = "";
     document.getElementById("chapterText").value = "";
     document.getElementById("outputPRE").innerHTML = JSON.stringify(
       { name: "", type: "book", data: [] },
@@ -142,7 +150,8 @@ const InputSection = () => {
         {chapters?.map((chapter, i) => (
           <div
             className="flex flex-col border-2 mt-3 mb-3 w-full sm:w-[450px]"
-            id="chapter"
+            id={"chapterDiv" + i}
+            key={chapter.chapterNo}
           >
             <div className="flex justify-end mr-2">
               <Button
@@ -155,7 +164,7 @@ const InputSection = () => {
                 Section
               </Button>
 
-              <Button className="mr-2 mt-2 ml-3" bgColor="blue.100" _hover={{ background: "white" }} onClick={() => handleRemove(i)}>
+              <Button className="mr-2 mt-2 ml-3" bgColor="blue.100" _hover={{ background: "white" }} onClick={(e) => handleRemove(chapter.chapterNo)}>
                 <DeleteIcon color="red.300" _hover={{ color: "red.600" }} />
               </Button>
             </div>
@@ -170,6 +179,7 @@ const InputSection = () => {
                   name="chapterText"
                   htmlSize={8}
                   width="auto"
+                  key='chapterText'
                 />
               </FormControl>
 
@@ -180,8 +190,6 @@ const InputSection = () => {
                 <Input
                   id="chapterNo"
                   name="chapterNo"
-                  isReadOnly={true}
-                  value={chapter?.chapterNo}
                   htmlSize={1}
                   width="auto"
                 />
@@ -195,22 +203,23 @@ const InputSection = () => {
               {chapter?.sections?.map((section) => (
                 <div
                   className="flex flex-row w-full sm:w-[400px] justify-center items-center mb-4 mt-4 sm:ml-4 bg-gray-100 rounded-lg"
-                  id="section"
+                  id="sectionDiv"
+                  key={section.no}
                 >
                   <div className="flex flex-col">
-                    <FormControl className="ml-2">
-                      <FormLabel htmlFor="sectionHeading">
-                        <span className="font-semibold text-lg">Heading</span>
-                      </FormLabel>
-                      <Input
-                        id="sectionHeading"
-                        name="sectionHeading"
-                        htmlSize={30}
-                        width="auto"
-                        className="mb-3"
-                        borderColor="blue.200"
-                      />
-                    </FormControl>
+                  <FormControl className="ml-2">
+                    <FormLabel htmlFor="sectionHeading">
+                      <span className="font-semibold text-lg">Heading</span>
+                    </FormLabel>
+                    <Input
+                      id="sectionHeading"
+                      name="sectionHeading"
+                      htmlSize={30}
+                      width="auto"
+                      className="mb-3"
+                      borderColor="blue.200"
+                    />
+                  </FormControl>
                     <FormControl className="ml-2">
                       <FormLabel htmlFor="sectionText">
                         <span className="font-semibold text-lg">Text</span>
@@ -227,9 +236,9 @@ const InputSection = () => {
                   </div>
 
                   <div className="ml-2 mt-3 h-[176px]">
-                    <Button bgColor="blue.100" onClick={() => handleRemoveSection(i, section?.no)} _hover={{ background: "gray.100" }}>
+                    <Button bgColor="blue.100" onClick={() => handleRemoveSection(i, section.no)} _hover={{ background: "gray.100" }}>
                       <DeleteIcon
-                        color="red.500"
+                        color="red.300"
                         _hover={{ color: "red.600" }}
                       />
                     </Button>
