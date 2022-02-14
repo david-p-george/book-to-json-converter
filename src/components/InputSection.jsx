@@ -16,21 +16,23 @@ const InputSection = () => {
 
   const returnRandomId = () => {
     return Math.floor(Math.random() * 100000);
-  }
+  };
 
   const handleAddChapter = () => {
     let currentChapters = [...chapters];
     let randomID = returnRandomId();
     currentChapters.push({
       chapterNo: randomID,
-      sections: [{ no: 1 }]
+      sections: [{ no: 1 }],
     });
     setChapters(currentChapters);
   };
 
   const handleRemove = (chapterNo) => {
     let currentChapters = [...chapters];
-    let updatedChapters = currentChapters.filter((obj) => obj.chapterNo !== chapterNo);
+    let updatedChapters = currentChapters.filter(
+      (obj) => obj.chapterNo !== chapterNo
+    );
     setChapters(updatedChapters);
   };
 
@@ -59,33 +61,35 @@ const InputSection = () => {
     const bookName = document.getElementById("bookName").value;
     const responseObj = { type: "book", name: bookName, data: [] };
 
-    Array.from(document.querySelectorAll('[id^="chapterDiv"]')).map((chapter) => {
-      let chapterText = chapter.querySelector("#chapterText").value;
-      let chapterNo = chapter.querySelector("#chapterNo").value;
+    Array.from(document.querySelectorAll('[id^="chapterDiv"]')).map(
+      (chapter) => {
+        let chapterText = chapter.querySelector("#chapterText").value;
+        let chapterNo = chapter.querySelector("#chapterNo").value;
 
-      let chapterObj = {
-        type: "chapter",
-        chapterNo: chapterNo,
-        chapterText: chapterText,
-        noOfSections: 0,
-        sections: [],
-      };
-
-      Array.from(chapter.querySelectorAll("#sectionDiv")).map((section) => {
-        let sectionText = section.querySelector("#sectionText").value;
-        let sectionHeading = section.querySelector("#sectionHeading").value;
-        let sectionObj = {
-          type: "section",
-          heading: sectionHeading,
-          text: sectionText,
+        let chapterObj = {
+          type: "chapter",
+          chapterNo: chapterNo,
+          chapterName: chapterText,
+          noOfSections: 0,
+          sections: [],
         };
 
-        chapterObj.noOfSections += 1;
-        chapterObj.sections.push(sectionObj);
-      });
+        Array.from(chapter.querySelectorAll("#sectionDiv")).map((section) => {
+          let sectionText = section.querySelector("#sectionText").value;
+          let sectionHeading = section.querySelector("#sectionHeading").value;
+          let sectionObj = {
+            type: "section",
+            heading: sectionHeading,
+            text: sectionText,
+          };
 
-      responseObj.data.push(chapterObj);
-    });
+          chapterObj.noOfSections += 1;
+          chapterObj.sections.push(sectionObj);
+        });
+
+        responseObj.data.push(chapterObj);
+      }
+    );
 
     return JSON.stringify(responseObj, null, 2);
   };
@@ -110,7 +114,7 @@ const InputSection = () => {
   return (
     <div className="w-screen sm:w-[500px] h-1/2 sm:h-[700px] bg-white overflow-y-auto overflow-x-auto">
       <div className="flex justify-around w-full">
-        <FormControl className="ml-2 mt-2">
+        <FormControl className="ml-4 mt-2">
           <FormLabel htmlFor="bookName">
             <span className="font-semibold text-lg">Book Name</span>
           </FormLabel>
@@ -164,8 +168,12 @@ const InputSection = () => {
                 Section
               </Button>
 
-              <Button className="mr-2 mt-2 ml-3" bgColor="blue.100" _hover={{ background: "white" }} onClick={(e) => handleRemove(chapter.chapterNo)}>
-                <DeleteIcon color="red.300" _hover={{ color: "red.600" }} />
+              <Button
+                className="mr-2 mt-2 ml-3"
+                bgColor="blue.100"
+                onClick={(e) => handleRemove(chapter.chapterNo)}
+              >
+                <DeleteIcon color="red.600" />
               </Button>
             </div>
 
@@ -179,7 +187,7 @@ const InputSection = () => {
                   name="chapterText"
                   htmlSize={8}
                   width="auto"
-                  key='chapterText'
+                  key="chapterText"
                 />
               </FormControl>
 
@@ -207,19 +215,19 @@ const InputSection = () => {
                   key={section.no}
                 >
                   <div className="flex flex-col">
-                  <FormControl className="ml-2">
-                    <FormLabel htmlFor="sectionHeading">
-                      <span className="font-semibold text-lg">Heading</span>
-                    </FormLabel>
-                    <Input
-                      id="sectionHeading"
-                      name="sectionHeading"
-                      htmlSize={30}
-                      width="auto"
-                      className="mb-3"
-                      borderColor="blue.200"
-                    />
-                  </FormControl>
+                    <FormControl className="ml-2">
+                      <FormLabel htmlFor="sectionHeading">
+                        <span className="font-semibold text-lg">Heading</span>
+                      </FormLabel>
+                      <Input
+                        id="sectionHeading"
+                        name="sectionHeading"
+                        htmlSize={30}
+                        width="auto"
+                        className="mb-3"
+                        borderColor="blue.200"
+                      />
+                    </FormControl>
                     <FormControl className="ml-2">
                       <FormLabel htmlFor="sectionText">
                         <span className="font-semibold text-lg">Text</span>
@@ -236,10 +244,12 @@ const InputSection = () => {
                   </div>
 
                   <div className="ml-2 mt-3 h-[176px]">
-                    <Button bgColor="blue.100" onClick={() => handleRemoveSection(i, section.no)} _hover={{ background: "gray.100" }}>
+                    <Button
+                      bgColor="blue.100"
+                      onClick={() => handleRemoveSection(i, section.no)}
+                    >
                       <DeleteIcon
-                        color="red.300"
-                        _hover={{ color: "red.600" }}
+                        color="red.600"
                       />
                     </Button>
                   </div>
