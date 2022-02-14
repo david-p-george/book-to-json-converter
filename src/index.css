@@ -16,14 +16,16 @@ code {
     monospace;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
-#inputSection {
-  scrollbar-width: none;
-}
-
-#outputSection {
-  scrollbar-width: none;
+@media (min-width:801px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  #inputSection {
+    scrollbar-width: none;
+  }
+  
+  #outputSection {
+    scrollbar-width: none;
+  }
 }
