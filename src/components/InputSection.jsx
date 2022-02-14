@@ -96,6 +96,7 @@ const InputSection = () => {
 
   const handleConvert = () => {
     document.getElementById("outputPRE").innerHTML = lowLevelConvert();
+    document.getElementById("copiedTextPara").textContent = "";
   };
 
   const handleReset = () => {
@@ -112,7 +113,7 @@ const InputSection = () => {
   };
 
   return (
-    <div className="w-screen sm:w-[500px] h-1/2 sm:h-[700px] bg-white overflow-y-auto overflow-x-auto">
+    <div className="w-screen sm:w-[500px] h-1/2 sm:h-[700px] bg-white overflow-y-auto overflow-x-auto" id="inputSection">
       <div className="flex justify-around w-full">
         <FormControl className="ml-4 mt-2">
           <FormLabel htmlFor="bookName">
