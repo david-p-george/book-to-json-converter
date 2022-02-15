@@ -63,8 +63,8 @@ const InputSection = () => {
 
     Array.from(document.querySelectorAll('[id^="chapterDiv"]')).map(
       (chapter) => {
-        let chapterText = chapter.querySelector("#chapterText").value;
-        let chapterNo = chapter.querySelector("#chapterNo").value;
+        let chapterText = chapter.querySelector("[id^='chapterText']").value;
+        let chapterNo = chapter.querySelector("[id^='chapterNo']").value;
 
         let chapterObj = {
           type: "chapter",
@@ -75,8 +75,8 @@ const InputSection = () => {
         };
 
         Array.from(chapter.querySelectorAll("#sectionDiv")).map((section) => {
-          let sectionText = section.querySelector("#sectionText").value;
-          let sectionHeading = section.querySelector("#sectionHeading").value;
+          let sectionText = section.querySelector("[id^='sectionText']").value;
+          let sectionHeading = section.querySelector("[id^='sectionHeading']").value;
           let sectionObj = {
             type: "section",
             heading: sectionHeading,
@@ -110,6 +110,7 @@ const InputSection = () => {
       null,
       2
     );
+    document.getElementById("copiedTextPara").textContent = "";
   };
 
   return (
@@ -180,25 +181,24 @@ const InputSection = () => {
 
             <div className="flex flex-row">
               <FormControl className="ml-4">
-                <FormLabel htmlFor="chapterText">
+                <FormLabel htmlFor={"chapterText" + chapter.chapterNo}>
                   <span className="font-semibold text-lg">Name</span>
                 </FormLabel>
                 <Input
-                  id="chapterText"
-                  name="chapterText"
+                  id={"chapterText" + chapter.chapterNo}
+                  name={"chapterText" + chapter.chapterNo}
                   htmlSize={8}
                   width="auto"
-                  key="chapterText"
                 />
               </FormControl>
 
               <FormControl>
-                <FormLabel htmlFor="chapterNo">
+                <FormLabel htmlFor={"chapterNo" + chapter.chapterNo}>
                   <span className="font-semibold text-lg">No</span>
                 </FormLabel>
                 <Input
-                  id="chapterNo"
-                  name="chapterNo"
+                  id={"chapterNo" + chapter.chapterNo}
+                  name={"chapterNo" + chapter.chapterNo}
                   htmlSize={1}
                   width="auto"
                 />
@@ -217,12 +217,12 @@ const InputSection = () => {
                 >
                   <div className="flex flex-col">
                     <FormControl className="ml-2">
-                      <FormLabel htmlFor="sectionHeading">
+                      <FormLabel htmlFor={"sectionHeading" + chapter.chapterNo + section.no}>
                         <span className="font-semibold text-lg">Heading</span>
                       </FormLabel>
                       <Input
-                        id="sectionHeading"
-                        name="sectionHeading"
+                        id={"sectionHeading" + chapter.chapterNo + section.no}
+                        name={"sectionHeading" + chapter.chapterNo + section.no}
                         htmlSize={30}
                         width="auto"
                         className="mb-3"
@@ -230,12 +230,12 @@ const InputSection = () => {
                       />
                     </FormControl>
                     <FormControl className="ml-2">
-                      <FormLabel htmlFor="sectionText">
+                      <FormLabel htmlFor={"sectionText" + chapter.chapterNo + section.no}>
                         <span className="font-semibold text-lg">Text</span>
                       </FormLabel>
                       <Input
-                        id="sectionText"
-                        name="sectionText"
+                        id={"sectionText" + chapter.chapterNo + section.no}
+                        name={"sectionText" + chapter.chapterNo + section.no}
                         htmlSize={30}
                         width="auto"
                         className="mb-3"

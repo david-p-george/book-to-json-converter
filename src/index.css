@@ -15,17 +15,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-@media (min-width:801px) {
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  
-  #inputSection {
-    scrollbar-width: none;
-  }
-  
-  #outputSection {
-    scrollbar-width: none;
-  }
-}
