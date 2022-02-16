@@ -76,7 +76,9 @@ const InputSection = () => {
 
         Array.from(chapter.querySelectorAll("#sectionDiv")).map((section) => {
           let sectionText = section.querySelector("[id^='sectionText']").value;
-          let sectionHeading = section.querySelector("[id^='sectionHeading']").value;
+          let sectionHeading = section.querySelector(
+            "[id^='sectionHeading']"
+          ).value;
           let sectionObj = {
             type: "section",
             heading: sectionHeading,
@@ -114,7 +116,10 @@ const InputSection = () => {
   };
 
   return (
-    <div className="w-screen sm:w-[500px] h-1/2 sm:h-[700px] bg-white overflow-y-auto overflow-x-auto" id="inputSection">
+    <div
+      className="w-screen sm:w-[500px] h-1/2 sm:h-[700px] bg-white overflow-y-auto overflow-x-auto"
+      id="inputSection"
+    >
       <div className="flex justify-around w-full">
         <FormControl className="ml-4 mt-2">
           <FormLabel htmlFor="bookName">
@@ -217,7 +222,11 @@ const InputSection = () => {
                 >
                   <div className="flex flex-col">
                     <FormControl className="ml-2">
-                      <FormLabel htmlFor={"sectionHeading" + chapter.chapterNo + section.no}>
+                      <FormLabel
+                        htmlFor={
+                          "sectionHeading" + chapter.chapterNo + section.no
+                        }
+                      >
                         <span className="font-semibold text-lg">Heading</span>
                       </FormLabel>
                       <Input
@@ -230,7 +239,9 @@ const InputSection = () => {
                       />
                     </FormControl>
                     <FormControl className="ml-2">
-                      <FormLabel htmlFor={"sectionText" + chapter.chapterNo + section.no}>
+                      <FormLabel
+                        htmlFor={"sectionText" + chapter.chapterNo + section.no}
+                      >
                         <span className="font-semibold text-lg">Text</span>
                       </FormLabel>
                       <Input
@@ -249,9 +260,7 @@ const InputSection = () => {
                       bgColor="blue.100"
                       onClick={() => handleRemoveSection(i, section.no)}
                     >
-                      <DeleteIcon
-                        color="red.600"
-                      />
+                      <DeleteIcon color="red.600" />
                     </Button>
                   </div>
                 </div>

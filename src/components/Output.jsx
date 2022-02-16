@@ -19,7 +19,10 @@ const Output = () => {
   };
 
   return (
-    <div className="w-screen sm:w-[500px] h-1/2 sm:h-[700px] bg-white sm:ml-10 overflow-y-auto overflow-x-auto" id="outputSection">
+    <div
+      className="w-screen sm:w-[500px] h-1/2 sm:h-[700px] bg-white sm:ml-10 overflow-y-auto overflow-x-auto"
+      id="outputSection"
+    >
       <div className="sticky top-0 w-full flex justify-between">
         <Heading as="h1" className="ml-2">
           JSON
